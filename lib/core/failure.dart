@@ -20,3 +20,13 @@ class AuthFailure extends Failure {
     return errorMessage;
   }
 }
+
+class TaskFailure extends Failure {
+  final String errorMessage;
+  @override
+  String toString() {
+    return this.errorMessage;
+  }
+
+  TaskFailure(this.errorMessage);
+}

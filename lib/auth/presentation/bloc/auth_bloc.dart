@@ -14,15 +14,15 @@ part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final LoginUseCase? loginUseCase;
-  final LogoutUseCase? logoutUseCase;
-  final AutoLoginUseCase? autoLoginUseCase;
-  final SignupUseCase? signupUseCase;
+  final LoginUsecase? loginUsecase;
+  final LogoutUsecase? logoutUsecase;
+  final AutoLoginUsecase? autoLoginUsecase;
+  final SignupUsecase? signupUsecase;
   AuthBloc(
-      {this.loginUseCase,
-      this.logoutUseCase,
-      this.autoLoginUseCase,
-      this.signupUseCase})
+      {this.loginUsecase,
+      this.logoutUsecase,
+      this.autoLoginUsecase,
+      this.signupUsecase})
       : super(AuthInitial()) {
     add(AutoLoginEvent());
   }
@@ -33,17 +33,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async* {
     yield AuthenticatingState();
     if (event is LoginEvent) {
-      final result = await loginUseCase!(event.username, event.password);
+      final result = await loginUsecase!(event.username, event.password);
       yield result.fold((failure) => _handleFailureCases(failure),
           (success) => AuthenticatedState());
     } else if (event is AutoLoginEvent) {
-      final result = await autoLoginUseCase!();
+      final result = await autoLoginUsecase!();
       yield result.fold((failure) => _handleFailureCases(failure),
           (success) => AuthenticatedState());
     } else if (event is SignupEvent) {
-      final result = await signupUseCase!(event.username, event.password);
+      final result = await signupUsecase!(event.username, event.password);
       result.fold(
           (left) => _handleFailureCases(left), (right) => AuthenticatedState());
+    } else if (event is LogoutEvent) {
+      await logoutUsecase!();
+      yield UnauthenticatedState();
     }
   }
 

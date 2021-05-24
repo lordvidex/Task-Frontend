@@ -1,9 +1,10 @@
 import 'package:dartz/dartz.dart';
-import '../../data/repositories/auth_repository.dart';
-import '../../../core/failure.dart';
 
-class LogoutUseCase {
+import '../../../core/failure.dart';
+import '../repositories/auth_repository.dart';
+
+class LogoutUsecase {
   final AuthRepository authRepo;
-  LogoutUseCase(this.authRepo);
+  LogoutUsecase(this.authRepo);
   Future<Either<Failure, void>> call() => authRepo.logout();
 }
