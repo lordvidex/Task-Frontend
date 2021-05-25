@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart' hide Task;
-import 'package:taskmanagement_frontend/tasks/domain/models/task.dart';
 
 import '../../../core/failure.dart';
+import '../models/task.dart';
 import '../repositories/task_repository.dart';
 
 class FetchTasksUsecase {

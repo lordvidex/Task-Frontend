@@ -42,7 +42,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           (success) => AuthenticatedState());
     } else if (event is SignupEvent) {
       final result = await signupUsecase!(event.username, event.password);
-      result.fold(
+      yield result.fold(
           (left) => _handleFailureCases(left), (right) => AuthenticatedState());
     } else if (event is LogoutEvent) {
       await logoutUsecase!();
@@ -50,10 +50,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  AuthState? _handleFailureCases(Failure failure) {
-    if (failure is AuthFailure) {
-      return UnauthenticatedState(message: failure.toString());
-    }
-    return null;
+  AuthState _handleFailureCases(Failure failure) {
+    return UnauthenticatedState(message: failure.toString());
   }
 }

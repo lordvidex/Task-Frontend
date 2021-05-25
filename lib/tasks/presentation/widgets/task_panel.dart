@@ -10,13 +10,19 @@ class TaskPanel extends StatefulWidget {
 }
 
 class _TaskPanelState extends State<TaskPanel> {
-  TextEditingController? _searchController;
+  late TextEditingController _searchController;
   TaskStatus? statusQuery;
 
   @override
   initState() {
     _searchController = TextEditingController();
     super.initState();
+  }
+
+  @override
+  dispose() {
+    _searchController.dispose();
+    super.dispose();
   }
 
   InputBorder border({bool isFocused = false}) => OutlineInputBorder(
@@ -68,7 +74,7 @@ class _TaskPanelState extends State<TaskPanel> {
                               borderRadius: BorderRadius.circular(12))),
                       onPressed: () => context.read<TaskBloc>().add(
                           FetchTasksEvent(
-                              searchTerm: _searchController!.text,
+                              searchTerm: _searchController.text,
                               taskStatus: statusQuery?.getStringValue())),
                     )))
           ],

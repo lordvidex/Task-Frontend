@@ -10,7 +10,7 @@ class TaskResponse {
     if (data is Map<String, dynamic>) {
       // error object returned
       if (data.containsKey('error')) {
-        throw TaskFetchException(
+        throw TaskException(
           data['message'],
           error: data['error'],
           statusCode: data['statusCode'],
@@ -21,6 +21,6 @@ class TaskResponse {
     } else if (data is List) {
       return TaskResponse(tasks: data.map((x) => Task.fromJson(x)).toList());
     }
-    throw TaskFetchException('Failed to successfully fetch and parse Tasks');
+    throw TaskException('Failed to successfully fetch and parse Tasks');
   }
 }

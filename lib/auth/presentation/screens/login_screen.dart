@@ -7,7 +7,7 @@ import 'package:retrofit/http.dart';
 import '../../../core/styles.dart';
 import '../bloc/auth_bloc.dart';
 import '../widgets/action_button_widget.dart';
-import '../widgets/email_field_widget.dart';
+import '../widgets/username_field_widget.dart';
 import '../widgets/password_field_widget.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -16,14 +16,21 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController? emailController;
-  TextEditingController? passwordController;
+  late TextEditingController usernameController;
+  late TextEditingController passwordController;
   bool isLogin = true;
   @override
   void initState() {
-    emailController = TextEditingController();
+    usernameController = TextEditingController();
     passwordController = TextEditingController();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    usernameController.dispose();
+    passwordController.dispose();
+    super.dispose();
   }
 
   void changeToSignIn() {
@@ -51,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     changeToSignIn: changeToSignIn,
                     isLogin: isLogin,
                     width: width,
-                    emailController: emailController,
+                    usernameController: usernameController,
                     passwordController: passwordController,
                   ),
                   opacity: 0.4),
@@ -63,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
             changeToSignIn: changeToSignIn,
             isLogin: isLogin,
             width: width,
-            emailController: emailController,
+            usernameController: usernameController,
             passwordController: passwordController,
           );
         else
@@ -76,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
 class MainWidget extends StatelessWidget {
   final bool isLogin;
   final double width;
-  final TextEditingController? emailController;
+  final TextEditingController? usernameController;
   final TextEditingController? passwordController;
   final Function changeToSignIn;
 
@@ -84,7 +91,7 @@ class MainWidget extends StatelessWidget {
       {Key? key,
       required this.isLogin,
       required this.width,
-      this.emailController,
+      this.usernameController,
       this.passwordController,
       required this.changeToSignIn})
       : super(key: key);
@@ -93,39 +100,46 @@ class MainWidget extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.blueGrey,
       body: Center(
-          child: Padding(
-        padding: const EdgeInsets.all(12),
+          child: Container(
+        color: Colors.white,
         child: Container(
             width: width,
+            padding: const EdgeInsets.all(24),
             child: SingleChildScrollView(
                 child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 12),
-                  child: Text(
-                      'Hello, \nfill in your username and password to get started!',
-                      style: TextStyle().headerText),
-                ),
-                EmailField(emailController!),
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: RichText(
+                        text: TextSpan(
+                            text: 'Hello!\n\n',
+                            style: TextStyle().headerText,
+                            children: [
+                          TextSpan(
+                              style: TextStyle().captionText,
+                              text:
+                                  'fill in your username and password to get started!')
+                        ]))),
+                UsernameField(usernameController!),
                 SizedBox(
                   height: 10,
                 ),
                 PasswordField(passwordController!),
                 Padding(
-                  padding: const EdgeInsets.only(top: 12.0),
+                  padding: const EdgeInsets.only(top: 30.0),
                   child: ActionButton(
                       text: (!isLogin) ? 'Sign Up' : 'Sign In',
                       onPressed: () {
                         context.read<AuthBloc>().add(!isLogin
-                            ? SignupEvent(
-                                emailController!.text, passwordController!.text)
-                            : LoginEvent(emailController!.text,
+                            ? SignupEvent(usernameController!.text,
+                                passwordController!.text)
+                            : LoginEvent(usernameController!.text,
                                 passwordController!.text));
                       }),
                 ),
                 if (isLogin)
                   Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 10),
                       child: Row(children: [
                         Text('DON\'T HAVE ACCOUNT?'),
                         TextButton(

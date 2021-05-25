@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:taskmanagement_frontend/auth/presentation/widgets/email_field_widget.dart';
+import 'package:taskmanagement_frontend/auth/presentation/widgets/username_field_widget.dart';
 
-class PasswordField extends EmailField {
+class PasswordField extends UsernameField {
   final TextEditingController controller;
   PasswordField(this.controller) : super(controller);
   @override

@@ -16,3 +16,18 @@ class TaskFailureState extends TaskState {
   final String message;
   TaskFailureState(this.message);
 }
+
+class TaskDeletedState extends TaskState {
+  final String message;
+  TaskDeletedState(this.message);
+}
+
+class TaskStatusUpdatedState extends TaskState {
+  final String message;
+  TaskStatusUpdatedState(this.message);
+}
+
+class TaskCreatedState extends TaskState {
+  final String message;
+  TaskCreatedState(this.message);
+}

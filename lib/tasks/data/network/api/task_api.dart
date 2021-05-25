@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:taskmanagement_frontend/tasks/data/network/models/status_dto.dart';
+import 'package:taskmanagement_frontend/tasks/data/network/models/task_dto.dart';
 import 'package:taskmanagement_frontend/tasks/data/network/models/task_response.dart';
 
 import '../../../domain/models/task.dart';
@@ -22,5 +23,13 @@ abstract class TaskApi {
 
   @PATCH('/tasks/{id}/status')
   Future<Task> patchTaskStatus(
-      @Path('id') final int id, @Body() final StatusDto statusBody);
+    @Path('id') final int id,
+    @Body() final StatusDto statusBody,
+  );
+
+  @POST('/tasks')
+  Future<Task> createTask(@Body() final TaskDto taskDto);
+
+  @DELETE('/tasks/{id}')
+  Future<String> deleteTask(@Path('id') final int id);
 }

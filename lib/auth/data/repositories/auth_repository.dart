@@ -1,10 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:taskmanagement_frontend/auth/domain/repositories/auth_repository.dart';
 
 import '../../../core/failure.dart';
+import '../../domain/repositories/auth_repository.dart';
 import '../local/local_storage.dart';
 import '../network/api/auth_api.dart';
+import '../../../core/exceptions.dart';
 import '../network/models/username_password.dart';
 
 class AuthRepositoryImpl extends AuthRepository {
@@ -16,14 +17,12 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<Either<Failure, void>> login(String username, String password) async {
     try {
       final result = await authApi.login(UsernamePassword(username, password));
-      if (result.error != null) {
-        return Left(AuthFailure(result.error!));
-      }
-      if (result.accessToken != null)
+      if (result.accessToken != null) {
         await localStorage.setAccessToken(result.accessToken!);
+      }
       return Right(null);
     } on DioError catch (e) {
-      return Left(AuthFailure('Failed to connect to server...'));
+      return Left(AuthFailure(e.errorMessage()));
     }
   }
 
@@ -31,15 +30,12 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<Either<Failure, void>> signup(String username, String password) async {
     try {
       final result = await authApi.signup(UsernamePassword(username, password));
-      if (result.error != null) {
-        // errors from server
-        return Left(AuthFailure(result.error!));
-      }
-      if (result.accessToken != null)
+      if (result.accessToken != null) {
         await localStorage.setAccessToken(result.accessToken!);
+      }
       return Right(null);
     } on DioError catch (e) {
-      return Left(AuthFailure('Failed to connect to server...'));
+      return Left(AuthFailure(e.errorMessage()));
     }
   }
 

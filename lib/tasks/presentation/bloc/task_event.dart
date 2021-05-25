@@ -6,7 +6,8 @@ abstract class TaskEvent {}
 class EditTaskStatusEvent extends TaskEvent {
   final int id;
   final TaskStatus status;
-  EditTaskStatusEvent(this.id, this.status);
+  final String taskTitle;
+  EditTaskStatusEvent(this.id, this.status, this.taskTitle);
 }
 
 class CreateTaskEvent extends TaskEvent {
@@ -26,4 +27,10 @@ class FetchTasksEvent extends TaskEvent {
             searchTerm == null || searchTerm.trim().isEmpty ? null : searchTerm,
         this.taskStatus =
             taskStatus == TaskStatus.ALL.getStringValue() ? null : taskStatus;
+}
+
+class DeleteTaskEvent extends TaskEvent {
+  final int taskId;
+  final String taskTitle;
+  DeleteTaskEvent(this.taskId,this.taskTitle);
 }
