@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:taskmanagement_frontend/tasks/presentation/bloc/task_bloc.dart';
 
 import 'auth/presentation/bloc/auth_bloc.dart';
 import 'auth/presentation/screens/login_screen.dart';
 import 'injection_container.dart';
+import 'tasks/presentation/bloc/task_bloc.dart';
 import 'tasks/presentation/screens/task_screen.dart';
 
 void main() async {

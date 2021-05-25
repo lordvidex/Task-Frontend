@@ -1,16 +1,24 @@
 # taskmanagement_frontend
 
-A new Flutter project.
+Flutter web app built to test NestJS backend API
+## Operations and Features
+- Basic CRUD Operations
+- Authentication and caching (No Firebase)
+- Clean Architecture
+## Duration
+3 days 
 
-## Getting Started
+## Screenshots
+>Empty List
+![](./screenshots/1.png)
 
-This project is a starting point for a Flutter application.
+>Creating a new task
+![](./screenshots/2.png)
 
-A few resources to get you started if this is your first Flutter project:
+>Filtering items
+![](./screenshots/3.png)
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+>Auth page
+![](./screenshots/4.png)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Don't forget to star the repo. Thanks D:)

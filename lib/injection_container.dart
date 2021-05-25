@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:taskmanagement_frontend/tasks/domain/usecases/delete_task_usecase.dart';
 
 import 'auth/data/local/local_storage.dart';
 import 'auth/data/network/api/auth_api.dart';
@@ -17,6 +16,7 @@ import 'tasks/data/network/api/task_api.dart';
 import 'tasks/data/repositories/task_repository_impl.dart';
 import 'tasks/domain/repositories/task_repository.dart';
 import 'tasks/domain/usecases/create_task_usecase.dart';
+import 'tasks/domain/usecases/delete_task_usecase.dart';
 import 'tasks/domain/usecases/edit_task_status_usecase.dart';
 import 'tasks/domain/usecases/fetch_usecase.dart';
 import 'tasks/presentation/bloc/task_bloc.dart';
