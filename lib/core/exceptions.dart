@@ -24,10 +24,7 @@ extension DioErrorExtended on DioError {
   // else it returns the default unclear/user unfriendly dio error message
   String errorMessage() {
     String? backEndErrorMessage = _resolveErrorMessage();
-    if (backEndErrorMessage != null) {
-      return backEndErrorMessage;
-    }
-    return this.message;
+    return backEndErrorMessage ?? this.message;
   }
 
   String? _resolveErrorMessage() {

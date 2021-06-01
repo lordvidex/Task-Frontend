@@ -25,9 +25,11 @@ GetIt I = GetIt.instance;
 
 class DI {
   final Dio taskDio = Dio(BaseOptions(
-      baseUrl: "http://localhost:3000",
+      baseUrl: "http://taskserver.eu-central-1.elasticbeanstalk.com",
       connectTimeout: 10000,
-      receiveTimeout: 10000))
+      sendTimeout: 10000,
+      receiveTimeout: 10000,
+      headers: {"Access-Control-Allow-Origin": "*"}))
     ..interceptors
         .add(PrettyDioLogger(requestHeader: true, error: true, request: true));
   Future<void> init() async {
@@ -69,11 +71,9 @@ class DI {
     //! Apis
     I.registerLazySingleton(() => AuthApi(
           I(),
-          baseUrl: "http://localhost:3000",
         ));
     I.registerLazySingleton(() => TaskApi(
           I(),
-          baseUrl: "http://localhost:3000",
         ));
     //! register dios
     I.registerLazySingleton<Dio>(() => taskDio);
